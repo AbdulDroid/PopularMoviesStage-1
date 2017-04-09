@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item format="integer" name="num_of_stars_details" type="dimen">5</item>
+    <item format="integer" name="num_of_stars" type="dimen">1</item>
+    <dimen name="margrinTop_five">5dp</dimen>
+    <dimen name="text_size_detail">18sp</dimen>
+    <dimen name="divider_height_content">50dp</dimen>
+    <dimen name="padding_left_or_right">10dp</dimen>
+    <dimen name="height_width_fifteen">15dp</dimen>
+    <dimen name="height_width_thirty">30dp</dimen>
+</resources>

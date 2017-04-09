@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kafilicious.popularmovies.MainActivity">
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="About App"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_sort"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="Sort By">
+        <menu>
+            <item
+                android:id="@+id/action_sort_popular"
+                android:title="Popularity"/>
+            <item
+                android:id="@+id/action_sort_top_rated"
+                android:title="Top Rated"/>
+        </menu>
+
+    </item>
+
+</menu>
