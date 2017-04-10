@@ -8,7 +8,7 @@
         android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="@dimen/margrinTop_five">
 
         <ImageView
             android:id="@+id/iv_poster"
@@ -22,7 +22,7 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="@dimen/margrinTop_five"
             android:layout_below="@id/iv_poster" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Android Lollipop"
+            android:text="@string/placeHolder_text_title"
             android:layout_alignParentStart="true"
             android:layout_below="@id/divider" />
 
@@ -39,7 +39,7 @@
             android:id="@+id/year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2015"
+            android:text="@string/placeHolder_text_year"
             android:layout_alignParentStart="true"
             android:layout_below="@id/tv_movie_title" />
 
@@ -48,18 +48,18 @@
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:text="Rating"
+            android:paddingLeft="@dimen/margrinTop_five"
+            android:text="@string/rating"
             android:textColor="@android:color/black"
             android:layout_alignParentEnd="true"
-            android:paddingRight="50dp"
+            android:paddingRight="@dimen/divider_height_content"
             android:layout_below="@id/divider"/>
 
         <TextView
             android:id="@+id/num_of_votes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(300)"
+            android:text="@string/placeHolder_text_vote"
             android:textColor="@android:color/black"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/rating"/>
@@ -77,8 +77,8 @@
             android:id="@+id/rating_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="4.1"
+            android:paddingLeft="@dimen/padding_left_or_right"
+            android:text="@string/placeHolder_text_rating"
             android:textColor="@android:color/black"
             android:layout_below="@id/rating"
             android:layout_toLeftOf="@id/rating_bar"/>

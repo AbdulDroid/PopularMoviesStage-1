@@ -5,7 +5,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/margrinTop_five"
     android:background="#F5F5F5"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.kafilicious.popularmovies.MainActivity"
@@ -33,7 +33,7 @@
                 android:layout_marginLeft="@dimen/margrinTop_five"
                 android:layout_toRightOf="@id/icon"
                 android:textColor="@android:color/tertiary_text_dark"
-                android:textSize="17sp"
+                android:textSize="@dimen/text_size_content"
                 android:textStyle="bold" />
 
             <ImageView
@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/height_width_thirty"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="@dimen/margrinTop_five"
                 android:src="@drawable/ic_chevron_right_black_24dp" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:paddingRight="@dimen/padding_left_or_right"
                 android:paddingTop="@dimen/margrinTop_five"
                 android:textColor="@android:color/black"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_content" />
 
             <TextView
                 android:id="@+id/tv_of"
@@ -67,10 +67,10 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/margrinTop_five"
                 android:layout_toLeftOf="@id/tv_total_pages"
-                android:text="of"
+                android:text="@string/of"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_content" />
 
 
             <TextView
@@ -78,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:text="@string/page_no"
                 android:layout_marginLeft="@dimen/margrinTop_five"
                 android:layout_toLeftOf="@id/tv_of"
                 android:background="@drawable/urllinkbackground"
@@ -87,7 +88,7 @@
                 android:paddingTop="@dimen/margrinTop_five"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="17sp" />
+                android:textSize="@dimen/text_size_content" />
 
             <ImageView
                 android:id="@+id/left_arrow"

@@ -8,4 +8,5 @@
     <dimen name="padding_left_or_right">10dp</dimen>
     <dimen name="height_width_fifteen">15dp</dimen>
     <dimen name="height_width_thirty">30dp</dimen>
+    <dimen name="text_size_content">17sp</dimen>
 </resources>

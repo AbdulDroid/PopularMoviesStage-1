@@ -19,7 +19,8 @@ public class NetworkUtils {
     private static final String BASE_API_URL =
             "https://api.themoviedb.org/3/";
     private static final String API_PAGE = "&page=";
-    private static final String API_KEY ="";
+    private static final String API_KEY =
+            "?api_key=";
     private static final String DEFAULT_SORT_TYPE =
             "movie/popular";
     private static final String BASE_IMAGE_URL =

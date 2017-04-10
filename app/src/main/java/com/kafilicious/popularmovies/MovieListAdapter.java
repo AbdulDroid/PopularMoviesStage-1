@@ -35,6 +35,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         this.movie_list = movies;
     }
 
+    public void setMovieData(List<MovieList> movieData){
+        movie_list = movieData;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView, ratingTextView, voterTextView, releaseTextView;
         ImageView posterImageView;
@@ -72,10 +77,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view;
-        boolean shouldAttachToParentImmediately = false;
-        view = LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent,shouldAttachToParentImmediately);
-
-        return new ViewHolder(view);
+        view = LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent,false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
@@ -98,8 +102,5 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         if(null == movie_list) return 0;
         return movie_list.size();
     }
-    public void setMovieData(List<MovieList> movieData){
-        movie_list = movieData;
-        notifyDataSetChanged();
-    }
+
 }

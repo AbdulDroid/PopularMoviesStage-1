@@ -5,7 +5,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MoviesResponse moviesResponse;
     private ImageView rightArrow, leftArrow;
     int currentPageNo = 1, totalPageNo = 1;
+    private CoordinatorLayout coordinatorLayout;
     private String SORT_POPULAR = "movie/popular";
     private String SORT_RATED = "movie/top_rated";
     String sortType = SORT_POPULAR;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ofTextView = (TextView) findViewById(R.id.tv_of);
         ofTextView.setVisibility(View.GONE);
         mCurrentPageTextView = (TextView) findViewById(R.id.tv_page_no);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_main);
 
         if(currentPageNo == 1){
             leftArrow.setVisibility(View.GONE);
@@ -85,13 +90,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView.setLayoutManager(layoutManager);
         //Setting the adapter for the RecyclerView
         adapter = new MovieListAdapter(movie_list);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(adapter);
+
+
 
         if (isNetworkAvailable()){
             loadMovies(sortType,currentPageNo);
 
         }else{
-
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "No Internet Connect, Please" +
+                    " Turn ON data and click RETRY",Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("RETRY", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadMovies(sortType, currentPageNo);
+                }
+            });
+            snackbar.show();
         }
     }
 
@@ -113,8 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void loadMovies(String sort, int page){
-        URL movieRequestUrl = null;
-        movieRequestUrl = NetworkUtils.buildUrl(sort, page);
+        URL movieRequestUrl = NetworkUtils.buildUrl(sort, page);
         new FetchMovieTask().execute(movieRequestUrl);
     }
 
@@ -129,11 +144,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected Void doInBackground(URL... params) {
             URL movieRequestUrl = params[0];
-            String jsonResponse = null;
             try{
-                jsonResponse =
+                String jsonResponse =
                         NetworkUtils.getResponseFromHttpUrl(movieRequestUrl);
                 try {
+                    movie_list.clear();
                     JSONObject object = new JSONObject(jsonResponse);
                     totalPages = object.getLong("total_pages");
                     totalPageNo = (int) totalPages;
@@ -170,12 +185,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            updateUI();
-            showViews();
-            MovieListAdapter adapter = new MovieListAdapter(movie_list);
-            mRecyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            setTextViews(totalPages, totalResults);
+
+            if (movie_list != null) {
+                updateUI();
+                showViews();
+                adapter.setMovieData(movie_list);
+                setTextViews(totalPages, totalResults);
+            }
         }
     }
 
@@ -189,14 +205,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     currentPageNo++;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
                     leftArrow.setVisibility(View.VISIBLE);
-                    adapter.setMovieData(null);
                     loadMovies(sortType, currentPageNo);
                     break;
                 } else if (currentPageNo == (totalPageNo - 1)) {
                     currentPageNo++;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
                     rightArrow.setVisibility(View.GONE);
-                    adapter.setMovieData(null);
                     loadMovies(sortType, currentPageNo);
                     break;
                 }
@@ -204,14 +218,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (currentPageNo > 1) {
                     currentPageNo--;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
-                    adapter.setMovieData(null);
                     loadMovies(sortType, currentPageNo);
                     break;
                 } else if (currentPageNo == 2) {
                     leftArrow.setVisibility(View.INVISIBLE);
                     currentPageNo--;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
-                    adapter.setMovieData(null);
                     loadMovies(sortType, currentPageNo);
                     break;
                 }
@@ -238,14 +250,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_sort_popular:
                 if (sortType != SORT_POPULAR) {
                     sortType = SORT_POPULAR;
-                    adapter.setMovieData(null);
                     loadMovies(sortType, currentPageNo);
                 }
                 return true;
             case R.id.action_sort_top_rated:
                 if (sortType != SORT_RATED){
                     sortType = SORT_RATED;
-                    adapter.setMovieData(null);
                     loadMovies(sortType, currentPageNo);
                 }
                 return true;
