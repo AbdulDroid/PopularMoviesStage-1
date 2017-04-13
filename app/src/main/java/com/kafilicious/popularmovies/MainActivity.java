@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kafilicious.popularmovies.Models.MovieList;
 import com.kafilicious.popularmovies.Models.MoviesResponse;
@@ -34,13 +33,28 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/*
+ * Copyright (C) 2017 Popular Movies, Stage 1
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private TextView mMovieCountTextView, mPageTextView, mCurrentPageTextView, ofTextView;
     private ArrayList<MovieList> movie_list;
-    private Toast mToast;
     private MoviesResponse moviesResponse;
     private ImageView rightArrow, leftArrow;
     int currentPageNo = 1, totalPageNo = 1;
@@ -86,25 +100,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_posters);
         mRecyclerView.setHasFixedSize(true);
         //Setting the layout manager for the RecyclerView
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
+        final int columns = getResources().getInteger(R.integer.grid_columns);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, columns, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         //Setting the adapter for the RecyclerView
         adapter = new MovieListAdapter(movie_list);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(adapter);
 
+        fetchMovies(sortType, currentPageNo);
+    }
 
-
+    public void fetchMovies(final String sort, final int page){
         if (isNetworkAvailable()){
-            loadMovies(sortType,currentPageNo);
+            loadMovies(sort,page);
 
         }else{
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "No Internet Connect, Please" +
                     " Turn ON data and click RETRY",Snackbar.LENGTH_INDEFINITE);
             snackbar.setAction("RETRY", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadMovies(sortType, currentPageNo);
+                    loadMovies(sort, page);
                 }
             });
             snackbar.show();
@@ -167,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         addMovies.voteCount = obj.getLong("vote_count");
                         addMovies.id = obj.getInt("id");
                         addMovies.posterPath = obj.getString("poster_path");
+                        addMovies.backdropPath = obj.getString("backdrop_path");
                         movie_list.add(addMovies);
 
                     }
@@ -205,26 +225,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     currentPageNo++;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
                     leftArrow.setVisibility(View.VISIBLE);
-                    loadMovies(sortType, currentPageNo);
+                    fetchMovies(sortType, currentPageNo);
                     break;
                 } else if (currentPageNo == (totalPageNo - 1)) {
                     currentPageNo++;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
                     rightArrow.setVisibility(View.GONE);
-                    loadMovies(sortType, currentPageNo);
+                    fetchMovies(sortType, currentPageNo);
                     break;
                 }
             case R.id.left_arrow:
                 if (currentPageNo > 1) {
                     currentPageNo--;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
-                    loadMovies(sortType, currentPageNo);
+                    fetchMovies(sortType, currentPageNo);
                     break;
                 } else if (currentPageNo == 2) {
                     leftArrow.setVisibility(View.INVISIBLE);
                     currentPageNo--;
                     mCurrentPageTextView.setText(String.valueOf(currentPageNo));
-                    loadMovies(sortType, currentPageNo);
+                    fetchMovies(sortType, currentPageNo);
                     break;
                 }
         }
@@ -250,13 +270,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_sort_popular:
                 if (sortType != SORT_POPULAR) {
                     sortType = SORT_POPULAR;
-                    loadMovies(sortType, currentPageNo);
+                    fetchMovies(sortType, currentPageNo);
                 }
                 return true;
             case R.id.action_sort_top_rated:
                 if (sortType != SORT_RATED){
                     sortType = SORT_RATED;
-                    loadMovies(sortType, currentPageNo);
+                    fetchMovies(sortType, currentPageNo);
                 }
                 return true;
 
