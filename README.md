@@ -20,9 +20,9 @@ The API requires an API Key to request data from it, you can request an API Key 
 
 # Screenshots
 <div align="center" markdown="1">
-<img src="https://github.com/lanre01/PopularMoviesStage-1/blob/master/app/src/main/res/drawable/screenshot.png" width="40%"/>
-<img src="https://github.com/lanre01/PopularMoviesStage-1/blob/master/app/src/main/res/drawable/screenshot_2.png" width="40%"/>
-<img src="https://...screenshot_3.png" width="40%"/>
+<img src="https://github.com/lanre01/PopularMoviesStage-1/app/src/main/res/drawable/Screenshot_2017-04-11-17-42-36.png" width="40%"/>
+<img src="https://github.com/lanre01/PopularMoviesStage-1/app/src/main/res/drawable/Screenshot_2017-04-12-12-37-59.png" width="40%"/>
+<img src="https://github.com/lanre01/PopularMoviesStage-1/app/src/main/res/drawable/Screenshot_2017-04-12-12-38-04.png" width="40%"/>
 </div>
 
 # License
