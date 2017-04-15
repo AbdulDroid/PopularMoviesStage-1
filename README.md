@@ -18,6 +18,13 @@ release date
 The data will be fetched from www.themoviedb.org using themoviedb API.
 The API requires an API Key to request data from it, you can request an API Key from themovidb.org if you don't have one already.
 
+# Screenshots
+<div align="center" markdown="1">
+<img src="https://github.com/lanre01/PopularMoviesStage-1/app/src/main/res/drawable/Screenshot_2017-04-11-17-42-36.png" width="40%"/>
+<img src="https://github.com/lanre01/PopularMoviesStage-1/app/src/main/res/drawable/Screenshot_2017-04-12-12-37-59.png" width="40%"/>
+<img src="https://github.com/lanre01/PopularMoviesStage-1/app/src/main/res/drawable/Screenshot_2017-04-12-12-38-04.png" width="40%"/>
+</div>
+
 # License
 #### Copyright 2017 Popular Movies Stage 1
 
